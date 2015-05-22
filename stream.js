@@ -14,7 +14,11 @@ function WebSocketStream(target, protocols) {
     socket = target
   // otherwise make a new one
   } else {
-    socket = new WS(target, protocols)
+    if (typeof WebSocket === 'function') {
+      socket = new WebSocket(target, protocols);
+    } else {
+      socket = new WS(target, protocols)
+    }
     socket.binaryType = 'arraybuffer'
   }
 
